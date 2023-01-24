@@ -14,7 +14,7 @@ function Dashboard() {
   };
 
   return (
-    <div className="bg-background -ml-8 w-9/12 rounded-tl-[2rem] rounded-bl-[2rem] py-[50px] px-14">
+    <div className="bg-background -ml-8 w-9/12 rounded-tl-[2rem] rounded-bl-[2rem] py-[14px] px-14 overflow-scroll">
       <div className="bg-background">{chooseDashboard()}</div>
     </div>
   );

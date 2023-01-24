@@ -41,7 +41,7 @@ function Form() {
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("is_admin", response.data.is_admin);
         handleCleanLogin();
-        Swal.fire("Good job!", "Successfully Log In!", "success");
+        Swal.fire("Success!", "Successfully Log In!", "success");
         router.push("/");
       })
       .catch((error) => {

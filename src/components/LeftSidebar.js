@@ -45,7 +45,6 @@ function LeftSidebar() {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     await axios.post(`${BASE_URL}/logout`).then((response) => {
-      console.log(response);
       localStorage.removeItem("token");
       dispatch(changeActive("Home"));
       router.push("/auth");

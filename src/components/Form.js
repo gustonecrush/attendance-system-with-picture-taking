@@ -1,7 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import Header from "./Header";
 import Input from "./Input";
@@ -19,6 +19,12 @@ function Form() {
   // validation
   const [validation, setValidation] = useState([]);
 
+  // login clean handler
+  const handleCleanLogin = () => {
+    setEmail("");
+    setPassword("");
+  };
+
   // login handler
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -31,6 +37,9 @@ function Form() {
       .post(`${BASE_URL}/login`, formData)
       .then((response) => {
         console.log(response);
+        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem("is_admin", response.data.is_admin);
+        handleCleanLogin();
         router.push("/");
       })
       .catch((error) => {
@@ -44,6 +53,12 @@ function Form() {
     e.preventDefault();
     console.log("register");
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, []);
 
   console.log(validation);
 

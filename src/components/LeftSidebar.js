@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeActive } from "redux/features/activeSlice";
 import { selectMenu } from "redux/features/activeSlice";
 import { store } from "redux/store";
+import Swal from "sweetalert2";
 
 const menus = [
   { name: "Home", icon: "menu.svg" },
@@ -23,12 +24,30 @@ function LeftSidebar() {
 
   const router = useRouter();
 
+  const confirmLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Want to Log Out",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#9599A6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Log Out",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Success!", "Successfully Log Out.", "success");
+        logoutHandler();
+      }
+    });
+  };
+
   const logoutHandler = async () => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     await axios.post(`${BASE_URL}/logout`).then((response) => {
       console.log(response);
       localStorage.removeItem("token");
+      dispatch(changeActive("Home"));
       router.push("/auth");
     });
   };
@@ -39,7 +58,7 @@ function LeftSidebar() {
       dispatch(changeActive(menu.name));
       setActive(menu.name);
     } else {
-      logoutHandler();
+      confirmLogout();
     }
   };
 

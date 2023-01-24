@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import Button from "./Button";
 import Header from "./Header";
 import Input from "./Input";
@@ -40,6 +41,7 @@ function Form() {
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("is_admin", response.data.is_admin);
         handleCleanLogin();
+        Swal.fire("Good job!", "You clicked the button!", "success");
         router.push("/");
       })
       .catch((error) => {

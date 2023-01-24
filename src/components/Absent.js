@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "./Button";
@@ -5,6 +6,8 @@ import { Heading } from "./microcomponents";
 
 function Absent({ type }) {
   const [date, setDate] = useState(new Date());
+  const [picture, setPicture] = useState("");
+  const [disable, setDisable] = useState(true);
 
   const tick = () => {
     setDate(new Date());
@@ -13,6 +16,8 @@ function Absent({ type }) {
   const webcamRef = useRef(null);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
+    setPicture(imageSrc);
+    setDisable(false);
   }, [webcamRef]);
 
   useEffect(() => {
@@ -22,6 +27,8 @@ function Absent({ type }) {
       clearInterval(timerID);
     };
   }, []);
+
+  console.log(picture);
 
   return (
     <div>
@@ -33,14 +40,29 @@ function Absent({ type }) {
           <Heading title={type} />
           <div class="flex items-center w-fill justify-center">
             <div class="flex flex-col mt-10 items-center justify-center bg-white p-5 shadow-aestheticShadow w-fit rounded-2xl space-y-4">
-              <Webcam
-                audio={false}
-                screenshotFormat="image/jpeg"
-                width={380}
-                className="rounded-2xl"
+              {picture != "" ? (
+                <Image
+                  src={picture}
+                  width={380}
+                  height={250}
+                  alt="Absent Entry Image"
+                  className="rounded-2xl"
+                />
+              ) : (
+                <Webcam
+                  audio={false}
+                  screenshotFormat="image/jpeg"
+                  width={380}
+                  ref={webcamRef}
+                  className="rounded-2xl"
+                />
+              )}
+              <Button
+                title={!disable ? "Done" : "Take a Picture"}
+                handleForm={capture}
+                disable={!disable}
               />
-              <Button title={"Take a Picture"} handleForm={capture} />
-              <Button title={"Absent"} bg="bg-textTersier" disable={true} />
+              <Button title={"Absent"} disable={disable} />
             </div>
           </div>
         </div>

@@ -1,20 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectMenu } from "redux/features/activeSlice";
+import Absent from "./Absent";
+import Attendances from "./Attendances";
 
 function Content() {
   const activeMenu = useSelector(selectMenu);
 
   const ContentDashboard = () => {
     if (activeMenu == "Home") {
-      return <p>HOME</p>;
+      return <Attendances />;
     } else if (activeMenu == "Absent Entry") {
-      return <p>Absent Entry</p>;
+      return <Absent type={activeMenu} />;
     } else if (activeMenu == "Absent Out") {
-      return <p>Absent Out</p>;
-    } else {
-      return <p>LOGOUT</p>;
-    }
+      return <Absent type={activeMenu} />;
+    } 
   };
 
   return <div>{ContentDashboard()}</div>;

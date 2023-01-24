@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Heading } from "./microcomponents";
 
-function Absent() {
+function Absent({ type }) {
   return (
-    <div>Absent</div>
-  )
+    <div>
+      <div>
+        <Heading title={type} />
+      </div>
+    </div>
+  );
 }
 
-export default Absent
+export default Absent;

@@ -1,4 +1,6 @@
+import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeActive } from "redux/features/activeSlice";
@@ -17,10 +19,28 @@ function LeftSidebar() {
 
   const dispatch = useDispatch();
 
+  const BASE_URL = process.env.NEXT_BASE_URL_BACKEND;
+
+  const router = useRouter();
+
+  const logoutHandler = async () => {
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    await axios.post(`${BASE_URL}/logout`).then((response) => {
+      console.log(response);
+      localStorage.removeItem("token");
+      router.push("/auth");
+    });
+  };
+
   const handleActive = (e, menu) => {
     e.preventDefault();
-    dispatch(changeActive(menu.name));
-    setActive(menu.name);
+    if (menu.name !== "Logout") {
+      dispatch(changeActive(menu.name));
+      setActive(menu.name);
+    } else {
+      logoutHandler();
+    }
   };
 
   return (

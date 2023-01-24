@@ -7,5 +7,6 @@ import Form from "./Form";
 import Button from "./Button";
 import Absent from "./Absent";
 import Content from "./Content";
+import Attendances from "./Attendances";
 
-export { Dashboard, Header, LeftSidebar, RightSidebar, Main, Form, Button, Absent, Content };
+export { Dashboard, Header, LeftSidebar, RightSidebar, Main, Form, Button, Absent, Content, Attendances };

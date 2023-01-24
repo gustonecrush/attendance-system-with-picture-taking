@@ -41,11 +41,14 @@ function Form() {
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("is_admin", response.data.is_admin);
         handleCleanLogin();
-        Swal.fire("Good job!", "You clicked the button!", "success");
+        Swal.fire("Good job!", "Successfully Log In!", "success");
         router.push("/");
       })
       .catch((error) => {
         console.log(error.response.data);
+        if ("message" in error.response.data) {
+          Swal.fire("Failed!", "Your username or password is wrong!", "error");
+        }
         setValidation(error.response.data);
       });
   };
@@ -60,9 +63,7 @@ function Form() {
     if (localStorage.getItem("token")) {
       router.push("/");
     }
-  }, []);
-
-  console.log(validation);
+  }, [validation]);
 
   return (
     <>
@@ -91,6 +92,7 @@ function Form() {
                   type={"email"}
                   name={"email"}
                   value={email}
+                  validation={validation.email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
@@ -98,6 +100,7 @@ function Form() {
                   type={"password"}
                   name={"password"}
                   value={password}
+                  validation={validation.password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button title={"Log In"} handleForm={handleLogin} />

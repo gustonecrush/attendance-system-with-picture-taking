@@ -1,13 +1,13 @@
 import React from "react";
 
-function Main({ children }) {
-  const [left, dashboard, right] = children;
-
+function Main({ auth = false, children }) {
   return (
-    <main className="bg-background w-full h-[100vh] flex flex-row font-poppins">
-      {left}
-      {dashboard}
-      {right}
+    <main
+      className={`bg-background w-full ${
+        auth ? "min-h-screen" : "h-[100vh] flex flex-row"
+      }  font-poppins`}
+    >
+      {children}
     </main>
   );
 }

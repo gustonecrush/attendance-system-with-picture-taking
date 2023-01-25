@@ -30,9 +30,6 @@ function RightSidebar() {
         </p>
       </article>
 
-      <Card background={"cardPrimary"} height={230px} />
-      <Card background={"cardSecondary"} />
-      <Card background={"cardTersier"} />
     </div>
   );
 }

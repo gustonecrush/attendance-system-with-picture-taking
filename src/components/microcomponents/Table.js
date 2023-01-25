@@ -47,7 +47,7 @@ function Table() {
   };
 
   const styleTD = (i) => {
-    return `font-[500] border-r-tableBorder ${
+    return `font-[400] border-r-tableBorder ${
       i != 6 ? "border-r border-b border-t" : ""
     } p-3`;
   };
@@ -111,7 +111,7 @@ function Table() {
             {absent.map((item, j) => (
               <>
                 <td className={styleTD(i)}>
-                  <Link href={item.absent_picture}>Link Picture</Link>
+                  <Link className="underline" href={item.absent_picture}>Link Picture</Link>
                 </td>
                 <td className={styleTD(i)}>{item.created_at}</td>
                 <td className={styleTD(i)}>{item.status}</td>

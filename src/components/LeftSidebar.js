@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { isAbsentEntry } from "redux/features/absentEntrySlice";
+import { isAbsentOut } from "redux/features/absentOutSlice";
 import { changeActive } from "redux/features/activeSlice";
 import { selectMenu } from "redux/features/activeSlice";
 import { store } from "redux/store";
@@ -16,7 +18,10 @@ const menus = [
 ];
 
 function LeftSidebar() {
-  const [active, setActive] = useState("Home");
+  const active = useSelector(selectMenu);
+
+  const isEntry = useSelector(isAbsentEntry);
+  const isOut = useSelector(isAbsentOut);
 
   const dispatch = useDispatch();
 
@@ -55,7 +60,6 @@ function LeftSidebar() {
     e.preventDefault();
     if (menu.name !== "Logout") {
       dispatch(changeActive(menu.name));
-      setActive(menu.name);
     } else {
       confirmLogout();
     }
@@ -79,7 +83,21 @@ function LeftSidebar() {
                 ? "bg-primary animate-pulse"
                 : "bg-transparent"
             }`}
-            onClick={(e) => handleActive(e, menu)}
+            onClick={(e) => {
+              if (menu.name == "Home") {
+                handleActive(e, menu);
+              } else {
+                if (!isEntry && menu.name == "Absent Out" && "Absent Out" ) {
+                  Swal.fire("Fail!", "You have not absent entry yet.", "warning");
+                } else if (isEntry && menu.name == "Absent Entry") {
+                  Swal.fire("Fail!", "You have absent entry.", "warning");
+                } else if (isOut && menu.name == "Absent Out") {
+                  Swal.fire("Fail!", "You have absent out.", "warning");
+                } else {
+                  handleActive(e, menu);
+                }
+              }
+            }}
           >
             <Image
               src={`/icons/${menu.icon}`}

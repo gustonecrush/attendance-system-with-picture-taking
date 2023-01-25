@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "./Input";
 import { Heading } from "./microcomponents";
+import Table from "./microcomponents/Table";
 
 function Attendances() {
   return (
@@ -18,8 +19,11 @@ function Attendances() {
           <Heading title="Statistics" />
         </div>
 
-        <div className="w-full mt-7 p-8 bg-white max-h-full min-h-fit overflow-scroll rounded-2xl shadow-aestheticShadow">
+        <div className="w-full mt-7 p-8 bg-white max-h-full min-h-fit rounded-2xl shadow-aestheticShadow">
           <Heading title="Your attendances" />
+          <article className="w-full overflow-x-scroll pb-4">
+            <Table />
+          </article>
         </div>
       </div>
     </div>

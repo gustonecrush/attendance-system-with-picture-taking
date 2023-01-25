@@ -20,6 +20,7 @@ module.exports = {
         cardPrimary: "#0A9F82",
         cardSecondary: "#94C6DF",
         cardTersier: "#7773BD",
+        tableBorder: "#DBDBDB",
       },
     },
   },

@@ -5,31 +5,31 @@ import {
   Main,
   RightSidebar,
 } from "@/components";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
-  const router = useRouter();
-
-  const [user, setUser] = useState([]);
-
+  // base url of API
   const BASE_URL = process.env.NEXT_BASE_URL_BACKEND;
-
+  // state the user logged in data
+  const [user, setUser] = useState([]);
+  // function to fetch user logged in data
   const fetchDataUser = async () => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     await axios
       .get(`${BASE_URL}/user`)
       .then((response) => {
-        console.log(response);
-        setUser(response)
+        setUser(response.data.data);
       })
       .catch((error) => {
         console.log(error.response.data);
       });
   };
-
+  // router to direct to another page
+  const router = useRouter();
+  // hooks useEffect
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       router.push("/auth");
@@ -44,7 +44,7 @@ export default function Home() {
       <Main>
         <LeftSidebar />
         <Dashboard />
-        <RightSidebar />
+        <RightSidebar user={user} />
       </Main>
     </>
   );

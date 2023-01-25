@@ -1,6 +1,6 @@
-import { Form, Header, Main } from "@/components";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import { Form, Header, Main } from "@/components";
 
 function Auth() {
   return (

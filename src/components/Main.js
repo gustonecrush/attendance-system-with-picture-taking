@@ -1,5 +1,9 @@
 import React from "react";
 
+/*
+  Main Component
+  -> used to store the sub components of main the website's content
+*/
 function Main({ auth = false, children }) {
   return (
     <main

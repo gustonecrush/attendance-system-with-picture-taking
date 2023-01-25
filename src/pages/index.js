@@ -23,6 +23,7 @@ export default function Home() {
       .get(`${BASE_URL}/user`)
       .then((response) => {
         console.log(response);
+        setUser(response)
       })
       .catch((error) => {
         console.log(error.response.data);

@@ -1,10 +1,11 @@
 import axios from "axios";
 import Image from "next/image";
 import React from "react";
+import { Card, Heading } from "./microcomponents";
 
 function RightSidebar() {
   return (
-    <div className="bg-secondary w-[30%] rounded-tl-[2rem] rounded-bl-[2rem] flex flex-col items-center py-[50px]">
+    <div className="bg-secondary w-[30%] px-10 rounded-tl-[2rem] rounded-bl-[2rem] flex flex-col items-center py-[50px]">
       <article className="relative flex items-center justify-center">
         <Image
           src="/user_bg.png"
@@ -28,6 +29,10 @@ function RightSidebar() {
           Software Engineer
         </p>
       </article>
+
+      <Card background={"cardPrimary"} height={230px} />
+      <Card background={"cardSecondary"} />
+      <Card background={"cardTersier"} />
     </div>
   );
 }

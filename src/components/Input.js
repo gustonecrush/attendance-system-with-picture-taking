@@ -7,16 +7,21 @@ function Input({
   value,
   onChange,
   validation = null,
+  placeholder="",
+  border=true,
 }) {
   return (
-    <div className="flex flex-col space-y-3">
+    <div className={`flex flex-col ${!border? 'space-y-0' : 'space-y-3'}`}>
       <p className="text-textSecondary">{title}</p>
       <input
         type={type}
         name={name}
         value={value}
         onChange={onChange}
-        className={`text-secondary border-secondary  border rounded-full py-[11px] px-6 focus:outline-primary ${
+        placeholder={placeholder}
+        className={`text-secondary ${
+          !border ? "border-none" : "border-secondary"
+        }  border rounded-full py-[11px] px-6 ${!border ? '-mt-4' : 'mt-0'} focus:outline-primary ${
           validation != null ? "border-red-600" : "border-secondary"
         }`}
       />

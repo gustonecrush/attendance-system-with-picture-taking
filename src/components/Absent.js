@@ -15,6 +15,9 @@ function Absent({ type }) {
   const [pictureConverted, setPictureConverted] = useState(null);
   const [disable, setDisable] = useState(true);
 
+  const absentEntryTime = 7;
+  const absentOutTime = 16;
+
   const BASE_URL = process.env.NEXT_BASE_URL_BACKEND;
   const router = useRouter();
   const tick = () => {
@@ -74,7 +77,36 @@ function Absent({ type }) {
       });
   };
 
-  const handleAbsentOut = async () => {};
+  const handleAbsentOut = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    const formData = new FormData();
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    fetch(picture)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const file = new File(
+          [blob],
+          "out-" + Math.random().toString(16).slice(2),
+          {
+            type: "image/png",
+          }
+        );
+        setPictureConverted(file);
+        formData.append("absent_picture", file);
+
+        axios.post(`${BASE_URL}/absent-out`, formData).then((response) => {
+          Swal.fire("Good job!", "Successfully Absent Out!", "success");
+          setPicture("");
+          setDisable(true);
+          console.log(response);
+        });
+      });
+  };
 
   useEffect(() => {
     var timerID = setInterval(() => tick(), 1000);
@@ -118,11 +150,19 @@ function Absent({ type }) {
                 handleForm={capture}
                 disable={!disable}
               />
-              <Button
-                title={"Absent"}
-                disable={disable}
-                handleForm={handleAbsentEntry}
-              />
+              {type == "Absent Entry" ? (
+                <Button
+                  title={"Absent"}
+                  disable={disable}
+                  handleForm={handleAbsentEntry}
+                />
+              ) : (
+                <Button
+                  title={"Absent"}
+                  disable={disable}
+                  handleForm={handleAbsentOut}
+                />
+              )}
             </div>
           </div>
         </div>

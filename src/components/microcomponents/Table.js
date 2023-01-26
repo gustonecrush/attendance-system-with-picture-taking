@@ -1,4 +1,5 @@
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -32,6 +33,14 @@ function Table() {
       });
   };
 
+  const convertTimestamp = (timestamp) => {
+    const unixTimestamp = Date.parse(timestamp) / 1000;
+    const miliseconds = unixTimestamp * 1000;
+    const dateObject = new Date(miliseconds);
+    const humanDateFormat = dateObject.toLocaleString();
+    return humanDateFormat;
+  };
+
   const fetchAbsentOuts = async () => {
     const token = localStorage.getItem("token");
 
@@ -49,7 +58,7 @@ function Table() {
   const styleTD = (i) => {
     return `font-[400] border-r-tableBorder ${
       i != 6 ? "border-r border-b border-t" : ""
-    } p-3`;
+    } p-3 `;
   };
 
   const filterBasedOnSameDate = (entry, out) =>
@@ -83,7 +92,7 @@ function Table() {
   }, []);
 
   return (
-    <table className="mt-5 w-[80vw]">
+    <table className="mt-5 w-[95vw]">
       <thead>
         <tr className="text-left">
           {tableHeads.map((item, i) => (
@@ -96,10 +105,40 @@ function Table() {
                   ? "w-[600px]"
                   : i == 0
                   ? "w-fit"
-                  : "w-[500px]"
+                  : i === 3
+                  ? "w-[300px]"
+                  : i === 6 || i == 2 || i == 5
+                  ? "w-[2000px]"
+                  : "w-[700px]"
               }`}
             >
-              {item}
+              <span className="flex flex-row">
+                {i == 2 || i == 5 ? (
+                  <Image
+                    src="/icons/ic_calender.svg"
+                    width={15}
+                    height={15}
+                    className="mr-2"
+                  />
+                ) : i == 4 || i == 1 ? (
+                  <Image
+                    src="/icons/ic_link.svg"
+                    width={15}
+                    height={15}
+                    className="mr-2"
+                  />
+                ) : i == 3 || i == 6 ? (
+                  <Image
+                    src="/icons/ic_info.svg"
+                    width={15}
+                    height={15}
+                    className="mr-2"
+                  />
+                ) : (
+                  ""
+                )}
+                {item}
+              </span>
             </th>
           ))}
         </tr>
@@ -111,10 +150,24 @@ function Table() {
             {absent.map((item, j) => (
               <>
                 <td className={styleTD(i)}>
-                  <Link className="underline" href={item.absent_picture}>Link Picture</Link>
+                  <Link className="underline" href={item.absent_picture}>
+                    Link Picture
+                  </Link>
                 </td>
-                <td className={styleTD(i)}>{item.created_at}</td>
-                <td className={styleTD(i)}>{item.status}</td>
+                <td className={styleTD(i)}>
+                  {convertTimestamp(item.created_at)})
+                </td>
+                <td className={styleTD(i)}>
+                  <span
+                    className={`${
+                      item.status == "late" || item.status == "home before time"
+                        ? "bg-[#FFCED3] px-4 py-1 rounded-lg"
+                        : ""
+                    }`}
+                  >
+                    {item.status}
+                  </span>
+                </td>
               </>
             ))}
           </tr>

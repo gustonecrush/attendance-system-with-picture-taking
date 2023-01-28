@@ -40,10 +40,15 @@ export default function Home() {
 
   return (
     <>
+      {/* Header  */}
       <Header title={"Dashboard"} />
+      {/* Main */}
       <Main>
+        {/* Left Sidebar */}
         <LeftSidebar />
+        {/* Dashboard */}
         <Dashboard />
+        {/* Right Sidebar */}
         <RightSidebar user={user} />
       </Main>
     </>

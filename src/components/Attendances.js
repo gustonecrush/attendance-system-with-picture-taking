@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "./Input";
+import Input from "./microcomponents/Input";
 import { Heading } from "./microcomponents";
 import Table from "./microcomponents/Table";
 

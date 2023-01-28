@@ -133,7 +133,7 @@ function Table() {
                     width={15}
                     height={15}
                     alt="icon"
-                    className="mr-2"
+                    className="mr-2 w-auto h-auto"
                   />
                 ) : i == 4 || i == 1 ? (
                   <Image
@@ -141,7 +141,7 @@ function Table() {
                     width={15}
                     height={15}
                     alt="icon"
-                    className="mr-2"
+                    className="mr-2 w-auto h-auto"
                   />
                 ) : i == 3 || i == 6 ? (
                   <Image
@@ -149,7 +149,7 @@ function Table() {
                     width={15}
                     height={15}
                     alt="icon"
-                    className="mr-2"
+                    className="mr-2 w-auto h-auto"
                   />
                 ) : (
                   ""

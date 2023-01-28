@@ -5,9 +5,13 @@ import { Form, Header, Main } from "@/components";
 function Auth() {
   return (
     <>
+      {/* Header */}
       <Header title={"Log In"} />
+      {/* Main */}
       <Main auth={true}>
+        {/* Form Auth */}
         <Form />
+        {/* Logo */}
         <Image
           src="/logo_absent.svg"
           width={50}

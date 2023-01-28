@@ -8,7 +8,7 @@ import { hasAbsentEntry } from "redux/features/absentEntrySlice";
 import { hasAbsentOut } from "redux/features/absentOutSlice";
 import { changeActive, selectMenu } from "redux/features/activeSlice";
 import Swal from "sweetalert2";
-import Button from "./Button";
+import Button from "./microcomponents/Button";
 import { Heading } from "./microcomponents";
 
 function Absent({ type }) {

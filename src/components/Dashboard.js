@@ -19,7 +19,7 @@ function Dashboard() {
   };
   // return the component which has been checked belongs to admin or user
   return (
-    <div className="bg-background -ml-8 w-9/12 rounded-tl-[2rem] rounded-bl-[2rem] py-[14px] px-14 overflow-scroll">
+    <div className="bg-background lg:-ml-8 lg:w-9/12 rounded-tl-[2rem] mx-auto lg:mx-0 rounded-bl-[2rem] py-[14px] px-14 overflow-scroll">
       <div className="bg-background">{chooseDashboard()}</div>
     </div>
   );

@@ -74,7 +74,7 @@ function LeftSidebar() {
   };
 
   return (
-    <div className="w-[12.5%] bg-secondary flex flex-col items-center pr-6 py-[90px] space-y-28">
+    <div className="hidden lg:flex w-[12.5%] bg-secondary flex-col items-center pr-6 py-[90px] space-y-28">
       {/* Logo Dashboard */}
       <Image
         src="/logo_absent.svg"

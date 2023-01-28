@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function RightSidebar({ user }) {
   return (
-    <div className="bg-secondary w-[27%] px-10 rounded-tl-[2rem] rounded-bl-[2rem] flex flex-col items-center py-[50px]">
+    <div className="bg-secondary w-[27%] px-10 rounded-tl-[2rem] rounded-bl-[2rem] hidden lg:flex flex-col items-center py-[50px]">
       {/* Profile Picture */}
       <section className="relative flex items-center justify-center">
         <Image

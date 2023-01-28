@@ -9,6 +9,7 @@ function Input({
   validation = null,
   placeholder="",
   border=true,
+  onClick = null
 }) {
   return (
     <div className={`flex flex-col ${!border? 'space-y-0' : 'space-y-3'}`}>
@@ -19,6 +20,7 @@ function Input({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        onClick={onClick}
         className={`text-secondary ${
           !border ? "border-none" : "border-secondary"
         }  border rounded-full py-[11px] px-6 ${!border ? '-mt-4' : 'mt-0'} focus:outline-primary ${

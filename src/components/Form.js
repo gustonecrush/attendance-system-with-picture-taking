@@ -13,6 +13,7 @@ function Form() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // router
   const router = useRouter();
@@ -41,6 +42,7 @@ function Form() {
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("is_admin", response.data.is_admin);
         handleCleanLogin();
+        setValidation([]);
         Swal.fire("Success!", "Successfully Log In!", "success");
         router.push("/");
       })
@@ -97,10 +99,11 @@ function Form() {
                 />
                 <Input
                   title={"Password"}
-                  type={"password"}
+                  type={showPassword ? "type" : "password"}
                   name={"password"}
                   value={password}
                   validation={validation.password}
+                  // onClick={(e) => setShowPassword(true)}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <Button title={"Log In"} handleForm={handleLogin} />

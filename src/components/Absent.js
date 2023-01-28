@@ -76,8 +76,8 @@ function Absent({ type }) {
           Swal.fire("Good job!", "Successfully Absent Entry!", "success");
           setPicture("");
           setDisable(true);
-          dispatch(changeActive("Home"))
-          dispatch(hasAbsentEntry(true))
+          dispatch(changeActive("Home"));
+          dispatch(hasAbsentEntry(true));
         });
       });
   };
@@ -108,8 +108,8 @@ function Absent({ type }) {
           Swal.fire("Good job!", "Successfully Absent Out!", "success");
           setPicture("");
           setDisable(true);
-           dispatch(changeActive("Home"));
-           dispatch(hasAbsentOut(true));
+          dispatch(changeActive("Home"));
+          dispatch(hasAbsentOut(true));
         });
       });
   };
@@ -125,7 +125,7 @@ function Absent({ type }) {
   return (
     <div>
       <div>
-        <div className="w-full mt-7 p-8 bg-white max-h-full min-h-fit overflow-scroll rounded-2xl shadow-aestheticShadow">
+        <div className="w-full mt-[10vh] p-8 bg-white max-h-full min-h-fit overflow-scroll rounded-2xl shadow-aestheticShadow">
           <h1 className="text-secondary font-light text-[16px]">
             {`${date.toLocaleTimeString()}`}
           </h1>

@@ -61,6 +61,20 @@ function Table() {
     } p-3 `;
   };
 
+  const downloadFile = async (e, id, type) => {
+    const API = type == 0 ? "absent-entry" : "absent-out";
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    await axios
+      .post(`${BASE_URL}/${API}/download/${id}}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const filterBasedOnSameDate = (entry, out) =>
     entry?.created_at.slice(0, 8) == out?.created_at.slice(0, 8);
 
@@ -118,6 +132,7 @@ function Table() {
                     src="/icons/ic_calender.svg"
                     width={15}
                     height={15}
+                    alt="icon"
                     className="mr-2"
                   />
                 ) : i == 4 || i == 1 ? (
@@ -125,6 +140,7 @@ function Table() {
                     src="/icons/ic_link.svg"
                     width={15}
                     height={15}
+                    alt="icon"
                     className="mr-2"
                   />
                 ) : i == 3 || i == 6 ? (
@@ -132,6 +148,7 @@ function Table() {
                     src="/icons/ic_info.svg"
                     width={15}
                     height={15}
+                    alt="icon"
                     className="mr-2"
                   />
                 ) : (
@@ -150,18 +167,23 @@ function Table() {
             {absent.map((item, j) => (
               <>
                 <td className={styleTD(i)}>
-                  <Link className="underline" href={item.absent_picture}>
+                  <p
+                    className="underline cursor-pointer"
+                    onClick={(e) => downloadFile(e, item.id, j)}
+                  >
                     Link Picture
-                  </Link>
+                  </p>
                 </td>
                 <td className={styleTD(i)}>
                   {convertTimestamp(item.created_at)})
                 </td>
                 <td className={styleTD(i)}>
                   <span
-                    className={`${
+                    className={`px-4 py-1 rounded-lg ${
                       item.status == "late" || item.status == "home before time"
-                        ? "bg-[#FFCED3] px-4 py-1 rounded-lg"
+                        ? "bg-[#FFCED3] "
+                        : item.status == "ontime"
+                        ? "bg-[#D4F8D3]"
                         : ""
                     }`}
                   >

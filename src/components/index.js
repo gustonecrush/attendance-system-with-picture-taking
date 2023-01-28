@@ -6,7 +6,8 @@ import RightSidebar from "./RightSidebar";
 import Form from "./Form";
 import Button from "./microcomponents/Button";
 import Absent from "./Absent";
-import Content from "./Content";
+import UserDashboard from "./UserDashboard";
+import AdminDashboard from "./AdminDashboard";
 import Attendances from "./Attendances";
 
 export {
@@ -18,6 +19,7 @@ export {
   Form,
   Button,
   Absent,
-  Content,
+  UserDashboard,
   Attendances,
+  AdminDashboard
 };

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+// import react
+import React from "react";
 
+// component Input
 function Input({
   title,
   type = "text",
@@ -13,7 +15,9 @@ function Input({
 }) {
   return (
     <div className={`flex flex-col ${!border ? "space-y-0" : "space-y-3"}`}>
+      {/* Label Input */}
       <p className="text-textSecondary">{title}</p>
+      {/* Input */}
       <input
         type={type}
         name={name}
@@ -29,6 +33,7 @@ function Input({
           validation != null ? "border-red-600" : "border-secondary"
         }`}
       />
+      {/* Validation Errors */}
       {validation != null ? (
         <p className="text-red-600 text-[0.8rem] -mt-5">
           {validation.map((item, i) => (

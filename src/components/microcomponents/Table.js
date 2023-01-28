@@ -1,8 +1,11 @@
-import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
+// import hooks and react
 import React, { useEffect, useState } from "react";
+// import axios
+import axios from "axios";
+// import Image component
+import Image from "next/image";
 
+// table heads item
 const tableHeads = [
   "No",
   "Entry Pict",
@@ -13,16 +16,20 @@ const tableHeads = [
   "Info",
 ];
 
+// component Table
 function Table() {
+  // base url to backend or server
+  const BASE_URL = process.env.NEXT_BASE_URL_BACKEND;
+  // state data absent entries and absent outs of employee
   const [absentEntries, setAbsentEntries] = useState([]);
   const [absentOuts, setAbsentOuts] = useState([]);
-  const [date, setDate] = useState(new Date());
-  const BASE_URL = process.env.NEXT_BASE_URL_BACKEND;
-
+  // fetch data absent entries
   const fetchAbsentEntris = async () => {
+    // get token item, to set as bearer token to request
     const token = localStorage.getItem("token");
-
+    // set header request with token
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    // send request to server
     await axios
       .post(`${BASE_URL}/absent-entry/employee`)
       .then((response) => {
@@ -32,19 +39,13 @@ function Table() {
         console.log(error);
       });
   };
-
-  const convertTimestamp = (timestamp) => {
-    const unixTimestamp = Date.parse(timestamp) / 1000;
-    const miliseconds = unixTimestamp * 1000;
-    const dateObject = new Date(miliseconds);
-    const humanDateFormat = dateObject.toLocaleString();
-    return humanDateFormat;
-  };
-
+  // fetch data absent outs
   const fetchAbsentOuts = async () => {
+    // get token item, to set as bearer token to request
     const token = localStorage.getItem("token");
-
+    // set header request with token
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    // send request to server
     await axios
       .post(`${BASE_URL}/absent-out/employee`)
       .then((response) => {
@@ -54,13 +55,7 @@ function Table() {
         console.log(error);
       });
   };
-
-  const styleTD = (i) => {
-    return `font-[400] border-r-tableBorder ${
-      i != 6 ? "border-r border-b border-t" : ""
-    } p-3 `;
-  };
-
+  // download file or picture function
   const downloadFile = async (e, id, type) => {
     const API = type == 0 ? "absent-entry" : "absent-out";
     const token = localStorage.getItem("token");
@@ -74,41 +69,55 @@ function Table() {
         console.log(error);
       });
   };
+  // convert timestamp to human dateformat
+  const convertTimestamp = (timestamp) => {
+    const unixTimestamp = Date.parse(timestamp) / 1000;
+    const miliseconds = unixTimestamp * 1000;
+    const dateObject = new Date(miliseconds);
+    const humanDateFormat = dateObject.toLocaleString();
+    return humanDateFormat;
+  };
+  // styling table data
+  const styleTD = (i) => {
+    return `font-[400] border-r-tableBorder ${
+      i != 6 ? "border-r border-b border-t" : ""
+    } p-3 `;
+  };
 
+  // process extract data absents
+  // filter to check the data absent entry and out is in same day or not
   const filterBasedOnSameDate = (entry, out) =>
     entry?.created_at.slice(0, 8) == out?.created_at.slice(0, 8);
-
+  // pair the absent if they are in the same date / day
   const zipAbsentEntryAndOut = (entry, out) => {
+    // prepare the absents paired array
     const absentPaired = [];
+    // map the absent entry data
     entry.map((item, i) => {
+      // check item absent entry to item absent out
       filterBasedOnSameDate(item, out[i])
-        ? absentPaired.unshift([item, out[i]])
-        : absentPaired.unshift([item]);
+        ? // if paired, add first on array the paired absent
+          absentPaired.unshift([item, out[i]])
+        : // else, add just entry absent
+          absentPaired.unshift([item]);
     });
+    // return the paired absent
     return absentPaired;
   };
-
+  // get data the paired absent and store to this variable so reusable
   const absents = zipAbsentEntryAndOut(absentEntries, absentOuts);
-
-  const tick = () => {
-    setDate(new Date());
-  };
-
+  // hook useEffect
   useEffect(() => {
     fetchAbsentEntris();
     fetchAbsentOuts();
-
-    // var timerID = setInterval(() => tick(), 1000);
-
-    // return function cleanup() {
-    //   clearInterval(timerID);
-    // };
   }, []);
 
   return (
     <table className="mt-5 w-[95vw]">
+      {/* Table Head */}
       <thead>
         <tr className="text-left">
+          {/* Heads Colum */}
           {tableHeads.map((item, i) => (
             <th
               key={i}
@@ -160,12 +169,15 @@ function Table() {
           ))}
         </tr>
       </thead>
+      {/* Table Body */}
       <tbody className="text-left">
         {absents.map((absent, i) => (
           <tr key={i}>
+            {/* No Absent */}
             <td className={styleTD(i)}>{i + 1}</td>
             {absent.map((item, j) => (
               <>
+                {/* Picture Absent Entry/Out */}
                 <td className={styleTD(i)}>
                   <p
                     className="underline cursor-pointer"
@@ -174,9 +186,11 @@ function Table() {
                     Link Picture
                   </p>
                 </td>
+                {/* Date Absent Entry/Out */}
                 <td className={styleTD(i)}>
                   {convertTimestamp(item.created_at)})
                 </td>
+                {/* Status Absent Entry/Out */}
                 <td className={styleTD(i)}>
                   <span
                     className={`px-4 py-1 rounded-lg ${

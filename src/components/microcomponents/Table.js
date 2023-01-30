@@ -173,7 +173,7 @@ function Table() {
       <tbody className="text-left">
         {absents.map((absent, i) => (
           <tr key={i}>
-            {/* No Absent */}
+            {/* No */}
             <td className={styleTD(i)}>{i + 1}</td>
             {absent.map((item, j) => (
               <>

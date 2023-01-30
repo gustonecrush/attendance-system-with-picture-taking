@@ -14,6 +14,7 @@ import { selectMenu } from "redux/features/activeSlice";
 import Image from "next/image";
 // impor sweetalert
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 // data menus of left sidebar
 const menus = [
@@ -74,15 +75,16 @@ function LeftSidebar() {
   };
 
   return (
-    <div className="hidden lg:flex w-[12.5%] bg-secondary flex-col items-center pr-6 py-[90px] space-y-28">
+    <div className="hidden w-[12.5%] lg:flex bg-secondary flex-col items-center pr-6 py-[90px] space-y-28">
       {/* Logo Dashboard */}
       <Image
         src="/logo_absent.svg"
         width={42.03}
         height={40}
         alt="User Background Profile"
-        className="object-contain"
+        className="object-contain cursor-pointer"
       />
+
       {/* Menus Left Sidebar */}
       <section className="flex flex-col space-y-8">
         {menus.map((menu, i) => (
@@ -93,25 +95,26 @@ function LeftSidebar() {
                 ? "bg-primary animate-pulse"
                 : "bg-transparent"
             }`}
-            onClick={(e) => {
-              if (menu.name == "Home") {
-                handleActive(e, menu);
-              } else {
-                if (!isEntry && menu.name == "Absent Out" && "Absent Out") {
-                  Swal.fire(
-                    "Fail!",
-                    "You have not absent entry yet.",
-                    "warning"
-                  );
-                } else if (isEntry && menu.name == "Absent Entry") {
-                  Swal.fire("Fail!", "You have absent entry.", "warning");
-                } else if (isOut && menu.name == "Absent Out") {
-                  Swal.fire("Fail!", "You have absent out.", "warning");
-                } else {
-                  handleActive(e, menu);
-                }
-              }
-            }}
+            // onClick={(e) => {
+            //   if (menu.name == "Home") {
+            //     handleActive(e, menu);
+            //   } else {
+            //     if (!isEntry && menu.name == "Absent Out" && "Absent Out") {
+            //       Swal.fire(
+            //         "Fail!",
+            //         "You have not absent entry yet.",
+            //         "warning"
+            //       );
+            //     } else if (isEntry && menu.name == "Absent Entry") {
+            //       Swal.fire("Fail!", "You have absent entry.", "warning");
+            //     } else if (isOut && menu.name == "Absent Out") {
+            //       Swal.fire("Fail!", "You have absent out.", "warning");
+            //     } else {
+            //       handleActive(e, menu);
+            //     }
+            //   }
+            // }}
+            onClick={(e) => handleActive(e, menu)}
           >
             <Image
               src={`/icons/${menu.icon}`}

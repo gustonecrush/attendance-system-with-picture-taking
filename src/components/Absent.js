@@ -14,7 +14,6 @@ import { Heading } from "./microcomponents";
 function Absent({ type }) {
   const [date, setDate] = useState(new Date());
   const [picture, setPicture] = useState("");
-  const [pictureConverted, setPictureConverted] = useState(null);
   const [disable, setDisable] = useState(true);
 
   const absentEntryTime = 7;
